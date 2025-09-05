@@ -1,0 +1,28 @@
+import test, { chromium } from '@playwright/test'
+
+test("Create a Lead",async({page})=>{
+    
+    await page.goto("http://leaftaps.com/opentaps/control/main")
+    await page.locator('#username').fill("DemoSalesManager")
+    await page.locator('[name=PASSWORD]').fill("crmsfa")
+    await page.locator('.decorativeSubmit').click()
+    await page.locator(`text='CRM/SFA'`).click()
+    await page.locator(`text='Leads'`).click()
+    await page.locator(`//a[text()='Create Lead']`).click()
+    await page.locator(`[id=createLeadForm_companyName]`).fill('Testleaf')
+    await page.locator(`[id=createLeadForm_firstName]`).fill('Rahul')
+    await page.locator('[id=createLeadForm_lastName]').fill('Sahu')
+    await page.locator(`#createLeadForm_personalTitle`).fill('Mr.')
+    await page.locator(`#createLeadForm_personalTitle`).fill('Title')
+    await page.locator(`#createLeadForm_annualRevenue`).fill('12LPA')
+    await page.locator(`#createLeadForm_departmentName`).fill('IT')
+    await page.locator(`#createLeadForm_primaryPhoneNumber`).fill('9892398234')
+    await page.locator('[name=submitButton]').click()
+    let fName=await page.locator(`#viewLead_firstName_sp`).textContent()
+    let lName=await page.locator(`#viewLead_lastName_sp`).textContent()
+    let status=await page.locator(`#viewLead_statusId_sp`).textContent()
+    console.log('Leads first name is '+fName +' and last name is '+lName)
+    console.log('Status is '+status)
+    const title =await page.title()
+    console.log('Title is '+title)
+})
