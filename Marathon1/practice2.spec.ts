@@ -1,0 +1,36 @@
+import test, { chromium} from '@playwright/test'
+
+test("erify Lead Creation and Conversion to Opportunity",async({page})=>{
+    await page.goto("https://login.salesforce.com/?locale=in")
+    await page.locator('#username').fill("ravindran.ramdas@testleaf.com")
+    await page.locator('[name=pw]').fill("RaviTestleaf#1432")
+    await page.locator('#Login').click()
+    await page.locator('.slds-icon-waffle').click()
+    await page.locator(`//button[@aria-label='View All Applications']`).click()
+    await page.locator(`//input[@class='slds-input']`).fill('Marketing')
+    await page.locator(`//p[text()='Track sales and marketing efforts with CRM objects.']`).click()
+    await page.locator(`(//span[text()='Leads'])[1]`).click()
+    await page.locator(`//div[@title='New']`).click()
+    await page.locator(`[name=salutation]`).click()
+    await page.locator(`//span[contains(text(),'Mr.')]`).click()
+    await page.locator(`[name=firstName]`).fill('Rahul')
+    await page.locator(`[name=lastName]`).fill('Sahu')
+    await page.locator(`[name=Company]`).fill('Testleaf')
+    await page.locator(`//button[text()='Save']`).click()
+    await page.locator(`.slds-dropdown-trigger.slds-dropdown-trigger_click.slds-button_last.overflow`).last().click()
+    await page.locator(`//span[text()='Convert']`).last().click()
+    await page.locator(`.slds-button.transparentButton`).last().click()
+    await page.locator(`//input[@class=' input']`).last().fill('Converted')
+    await page.locator(`//button[text()='Convert']`).click()
+    await page.locator(`//button[text()='Go to Leads']`).click()
+    await page.locator('[name=Lead-search-input]').fill('Converted')
+    await page.locator('[name=Lead-search-input]').press('Enter')
+    await page.locator(`//span[text()='Opportunities']`).click()
+    await page.locator('[name=Opportunity-search-input]').fill('Converted')
+    await page.locator('[name=Opportunity-search-input]').press('Enter')
+    //can we have single line for 29 & 30
+    await page.locator(`//span[text()='Converted']`).click()
+
+
+    await page.waitForTimeout(3000)
+})
